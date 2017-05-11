@@ -1,6 +1,12 @@
 /* global gapi */
 import React from 'react';
 
+function globalSignIn(user)
+{
+    console.log("GLOBAL", user);
+}
+
+window.globalSignIn = globalSignIn
 
 class LoginButton extends React.Component {
 
@@ -36,7 +42,7 @@ class LoginButton extends React.Component {
             // Retrieve the singleton for the GoogleAuth library and set up the client.
             this.auth2 = gapi.auth2.init({
                 client_id: '793065510867-j06sr2rufh7ns1kepcdolt9l22ph5pso.apps.googleusercontent.com'
-            });
+            }).then(function(user){ console.log("THEN", user); });
 
  /*           this.auth2.attachClickHandler(this.refs.googleButton, {},
                 (googleUser) => {
@@ -49,7 +55,7 @@ class LoginButton extends React.Component {
 
     render() {
         return (
-            <div className="g-signin2" data-onsuccess={this.onSignIn}></div>
+            <div className="g-signin2" data-onsuccess="globalSignIn"></div>
         );
     }
 
